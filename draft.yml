@@ -2,21 +2,25 @@ models:
   TimeEntry:
     date: date
     project_id: id foreign
-    type_id: id: foreign
-    time: decimal:1,2
+    type_id: id foreign
+    time: decimal:3,2
     owner_id: id foreign:users
-    
   Project:
     name: string:50
     customer_id: id foreign
-
+    relationships:
+      hasMany: TimeEntry
   Customer:
     name: string:50
-  
+    relationships:
+      hasMany: Project
   Type:
-    name: string
-  
+    name: string:255
+    relationships:
+      hasMany: TimeEntry
   User:
-    company: string
+    company: string:255
+    relationships:
+      hasMany: TimeEntry
 
 seeders: TimeEntry, Project, Customer, Type
