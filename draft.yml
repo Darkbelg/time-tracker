@@ -5,15 +5,17 @@ models:
     type_id: id foreign
     time: decimal:3,2
     owner_id: id foreign:users
+    comment: text
+
   Project:
     name: string:50
-    customer_id: id foreign
     relationships:
       hasMany: TimeEntry
+      belongsToMany: Customer
   Customer:
     name: string:50
     relationships:
-      hasMany: Project
+      belongsToMany: Project
   Type:
     name: string:255
     relationships:

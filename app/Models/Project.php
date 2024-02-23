@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
@@ -18,7 +18,6 @@ class Project extends Model
      */
     protected $fillable = [
         'name',
-        'customer_id',
     ];
 
     /**
@@ -28,7 +27,6 @@ class Project extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'customer_id' => 'integer',
     ];
 
     public function timeEntries(): HasMany
@@ -36,8 +34,8 @@ class Project extends Model
         return $this->hasMany(TimeEntry::class);
     }
 
-    public function customer(): BelongsTo
+    public function customers(): BelongsToMany
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsToMany(Customer::class);
     }
 }

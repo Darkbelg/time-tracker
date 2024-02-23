@@ -35,6 +35,7 @@ class TimeEntryFactory extends Factory
             'type_id' => Type::factory(),
             'time' => $timeValues[array_rand($timeValues)],
             'owner_id' => User::factory(),
+            'comment' => $this->faker->text(),
         ];
     }
 }

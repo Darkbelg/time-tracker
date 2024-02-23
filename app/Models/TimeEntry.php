@@ -21,6 +21,7 @@ class TimeEntry extends Model
         'type_id',
         'time',
         'owner_id',
+        'comment',
     ];
 
     /**

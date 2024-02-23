@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Customer;
 use App\Models\Project;
 
 class ProjectFactory extends Factory
@@ -23,7 +22,6 @@ class ProjectFactory extends Factory
     {
         return [
             'name' => 'CR-' . $this->faker->numberBetween(20200101, 20241231) . ' ' . $this->faker->name(),
-            'customer_id' => Customer::factory(),
         ];
     }
 }

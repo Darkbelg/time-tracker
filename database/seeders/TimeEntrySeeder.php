@@ -12,6 +12,6 @@ class TimeEntrySeeder extends Seeder
      */
     public function run(): void
     {
-        // TimeEntry::factory()->count(5)->create();
+        TimeEntry::factory()->count(5)->create();
     }
 }
