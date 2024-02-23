@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('type_id')->constrained();
             $table->decimal('time', 3, 2);
             $table->foreignId('owner_id')->constrained('users');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
 
