@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -25,18 +26,22 @@ class TimeEntryResource extends Resource
             ->schema([
                 Forms\Components\Select::make('project_id')
                     ->relationship('project', 'name')
+                    ->searchable()
+                    ->preload()
                     ->required(),
                 Forms\Components\Select::make('type_id')
                     ->relationship('type', 'name')
                     ->required(),
-                Forms\Components\Select::make('owner_id')
-                    ->relationship('owner', 'name')
-                    ->required(),
                 Forms\Components\DatePicker::make('date')
+                    ->default(now())
                     ->required(),
                 Forms\Components\TextInput::make('time')
-                    ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->step(0.25)
+                    ->minValue(0)
+                    ->maxValue(9.75)
+                    ->required(),
+                Forms\Components\Textarea::make('comment')
             ]);
     }
 
@@ -50,14 +55,14 @@ class TimeEntryResource extends Resource
                 Tables\Columns\TextColumn::make('type.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('owner.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('date')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('time')
                     ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('comment')
+                    ->limit(50)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -68,8 +73,10 @@ class TimeEntryResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('date', 'desc')
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->relationship('type', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
