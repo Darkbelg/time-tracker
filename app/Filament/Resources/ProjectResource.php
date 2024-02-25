@@ -36,7 +36,7 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer.name')
+                Tables\Columns\TextColumn::make('customers.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
