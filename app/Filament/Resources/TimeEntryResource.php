@@ -2,17 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TimeEntryResource\Pages;
-use App\Filament\Resources\TimeEntryResource\RelationManagers;
-use App\Models\TimeEntry;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Filters\SelectFilter;
+use App\Models\Customer;
+use Filament\Forms\Form;
+use App\Models\TimeEntry;
 use Filament\Tables\Table;
+use Illuminate\Support\Carbon;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\TimeEntryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TimeEntryResource\RelationManagers;
+use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
 
 class TimeEntryResource extends Resource
 {
@@ -51,18 +55,27 @@ class TimeEntryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('project.name')
                     ->numeric()
+                    ->toggleable(isToggledHiddenByDefault: false)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('project.customers.name')
+                    ->numeric()
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('type.name')
                     ->numeric()
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date')
                     ->date()
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('time')
                     ->numeric()
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('comment')
                     ->limit(50)
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -76,7 +89,29 @@ class TimeEntryResource extends Resource
             ->defaultSort('date', 'desc')
             ->filters([
                 SelectFilter::make('type')
-                    ->relationship('type', 'name')
+                    ->relationship('type', 'name'),
+                Filter::make('date')
+                    ->form([
+                        \Filament\Forms\Components\DatePicker::make('date')
+                            ->placeholder('YYYY-MM-DD')
+                            ->displayFormat('Y-m-d')
+                            ->maxDate(now()->format('Y-m-d')),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        if (!empty($data['date'])) {
+                            return $query->whereDate('date', '=', $data['date']);
+                        }
+
+                        return $query;
+                    })
+                    ->indicateUsing(function (array $data): ?string {
+                        // Customize the indicator for the active filter
+                        if (!empty($data['date'])) {
+                            return 'Day ' . Carbon::parse($data['date'])->toFormattedDateString();
+                        }
+
+                        return null;
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
