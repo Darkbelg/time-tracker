@@ -14,6 +14,8 @@ class TimeEntryOwnerScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->where('owner_id', auth()->user()->id);
+        if (auth()->check()) {
+            $builder->where('owner_id', auth()->user()->id);
+        }
     }
 }

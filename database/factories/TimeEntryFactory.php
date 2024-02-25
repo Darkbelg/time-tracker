@@ -30,7 +30,7 @@ class TimeEntryFactory extends Factory
         ];
 
         return [
-            'date' => $this->faker->dateTimeBetween('-1 week', 'now'),
+            'date' => $this->faker->dateTimeBetween('-2 months', 'now'),
             'project_id' => Project::factory(),
             'type_id' => Type::factory(),
             'time' => $timeValues[array_rand($timeValues)],
