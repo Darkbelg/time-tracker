@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\TimeEntry;
+use App\Models\Type;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TimeEntryPolicy
+class TypePolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class TimeEntryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_time::entry');
+        return $user->can('view_any_type');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Type  $type
      * @return bool
      */
-    public function view(User $user, TimeEntry $timeEntry): bool
+    public function view(User $user, Type $type): bool
     {
-        return $user->can('view_time::entry');
+        return $user->can('view_type');
     }
 
     /**
@@ -41,31 +41,31 @@ class TimeEntryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_time::entry');
+        return $user->can('create_type');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Type  $type
      * @return bool
      */
-    public function update(User $user, TimeEntry $timeEntry): bool
+    public function update(User $user, Type $type): bool
     {
-        return $user->can('update_time::entry');
+        return $user->can('update_type');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Type  $type
      * @return bool
      */
-    public function delete(User $user, TimeEntry $timeEntry): bool
+    public function delete(User $user, Type $type): bool
     {
-        return $user->can('delete_time::entry');
+        return $user->can('delete_type');
     }
 
     /**
@@ -76,19 +76,19 @@ class TimeEntryPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_time::entry');
+        return $user->can('delete_any_type');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Type  $type
      * @return bool
      */
-    public function forceDelete(User $user, TimeEntry $timeEntry): bool
+    public function forceDelete(User $user, Type $type): bool
     {
-        return $user->can('force_delete_time::entry');
+        return $user->can('force_delete_type');
     }
 
     /**
@@ -99,19 +99,19 @@ class TimeEntryPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_time::entry');
+        return $user->can('force_delete_any_type');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Type  $type
      * @return bool
      */
-    public function restore(User $user, TimeEntry $timeEntry): bool
+    public function restore(User $user, Type $type): bool
     {
-        return $user->can('restore_time::entry');
+        return $user->can('restore_type');
     }
 
     /**
@@ -122,19 +122,19 @@ class TimeEntryPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_time::entry');
+        return $user->can('restore_any_type');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Type  $type
      * @return bool
      */
-    public function replicate(User $user, TimeEntry $timeEntry): bool
+    public function replicate(User $user, Type $type): bool
     {
-        return $user->can('replicate_time::entry');
+        return $user->can('replicate_type');
     }
 
     /**
@@ -145,7 +145,7 @@ class TimeEntryPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_time::entry');
+        return $user->can('reorder_type');
     }
 
 }

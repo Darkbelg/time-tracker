@@ -8,6 +8,7 @@ use App\Models\Customer;
 use Filament\Forms\Form;
 use App\Models\TimeEntry;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
@@ -32,12 +33,26 @@ class TimeEntryResource extends Resource
                     ->relationship('project', 'name')
                     ->searchable()
                     ->preload()
+                    ->live()
                     ->required(),
                 Forms\Components\Select::make('type_id')
                     ->relationship('type', 'name')
                     ->required(),
+                Forms\Components\Select::make('project_customers')
+                    ->relationship('project.customers', 'name',function (Builder $query, Forms\Get $get){
+                        $projectId = $get('project_id');
+
+                        return $query->whereHas('projects', function ($query) use ($projectId) {
+                            $query->where('id', $projectId);
+                        });
+                    })
+                    ->label('Customers')
+                    ->selectablePlaceholder(false)
+                    ->disabled(),
                 Forms\Components\DatePicker::make('date')
                     ->default(now())
+                    ->maxDate(now())
+                    ->displayFormat('d/m/Y')
                     ->required(),
                 Forms\Components\TextInput::make('time')
                     ->numeric()

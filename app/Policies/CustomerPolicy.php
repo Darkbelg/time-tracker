@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\TimeEntry;
+use App\Models\Customer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TimeEntryPolicy
+class CustomerPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class TimeEntryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_time::entry');
+        return $user->can('view_any_customer');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Customer  $customer
      * @return bool
      */
-    public function view(User $user, TimeEntry $timeEntry): bool
+    public function view(User $user, Customer $customer): bool
     {
-        return $user->can('view_time::entry');
+        return $user->can('view_customer');
     }
 
     /**
@@ -41,31 +41,31 @@ class TimeEntryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_time::entry');
+        return $user->can('create_customer');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Customer  $customer
      * @return bool
      */
-    public function update(User $user, TimeEntry $timeEntry): bool
+    public function update(User $user, Customer $customer): bool
     {
-        return $user->can('update_time::entry');
+        return $user->can('update_customer');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Customer  $customer
      * @return bool
      */
-    public function delete(User $user, TimeEntry $timeEntry): bool
+    public function delete(User $user, Customer $customer): bool
     {
-        return $user->can('delete_time::entry');
+        return $user->can('delete_customer');
     }
 
     /**
@@ -76,19 +76,19 @@ class TimeEntryPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_time::entry');
+        return $user->can('delete_any_customer');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Customer  $customer
      * @return bool
      */
-    public function forceDelete(User $user, TimeEntry $timeEntry): bool
+    public function forceDelete(User $user, Customer $customer): bool
     {
-        return $user->can('force_delete_time::entry');
+        return $user->can('force_delete_customer');
     }
 
     /**
@@ -99,19 +99,19 @@ class TimeEntryPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_time::entry');
+        return $user->can('force_delete_any_customer');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Customer  $customer
      * @return bool
      */
-    public function restore(User $user, TimeEntry $timeEntry): bool
+    public function restore(User $user, Customer $customer): bool
     {
-        return $user->can('restore_time::entry');
+        return $user->can('restore_customer');
     }
 
     /**
@@ -122,19 +122,19 @@ class TimeEntryPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_time::entry');
+        return $user->can('restore_any_customer');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TimeEntry  $timeEntry
+     * @param  \App\Models\Customer  $customer
      * @return bool
      */
-    public function replicate(User $user, TimeEntry $timeEntry): bool
+    public function replicate(User $user, Customer $customer): bool
     {
-        return $user->can('replicate_time::entry');
+        return $user->can('replicate_customer');
     }
 
     /**
@@ -145,7 +145,7 @@ class TimeEntryPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_time::entry');
+        return $user->can('reorder_customer');
     }
 
 }
