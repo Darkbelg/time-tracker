@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Customer;
@@ -16,7 +17,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TimeEntryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\TimeEntryResource\RelationManagers;
 use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
 
 class TimeEntryResource extends Resource
@@ -35,9 +35,6 @@ class TimeEntryResource extends Resource
                     ->preload()
                     ->live()
                     ->required(),
-                Forms\Components\Select::make('type_id')
-                    ->relationship('type', 'name')
-                    ->required(),
                 Forms\Components\Select::make('project_customers')
                     ->relationship('project.customers', 'name',function (Builder $query, Forms\Get $get){
                         $projectId = $get('project_id');
@@ -49,6 +46,10 @@ class TimeEntryResource extends Resource
                     ->label('Customers')
                     ->selectablePlaceholder(false)
                     ->disabled(),
+                Forms\Components\Select::make('type_id')
+                    ->relationship('type', 'name')
+                    ->live()
+                    ->required(),
                 Forms\Components\DatePicker::make('date')
                     ->default(now())
                     ->maxDate(now())
@@ -61,6 +62,10 @@ class TimeEntryResource extends Resource
                     ->maxValue(9.75)
                     ->required(),
                 Forms\Components\Textarea::make('comment')
+                    ->requiredIf('type_id', fn() => Type::where('name', 'like', 'other')->value('id'))
+                    ->validationMessages([
+                        'required_if' => 'If other is selected a comment is required.',
+                    ])
             ]);
     }
 
@@ -85,6 +90,7 @@ class TimeEntryResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('time')
+                    ->summarize(Tables\Columns\Summarizers\Sum::make())
                     ->numeric()
                     ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
