@@ -12,7 +12,15 @@ class Register extends BaseRegister
     {
         return $form
             ->schema([
-                $this->getNameFormComponent(),
+                TextInput::make('first_name')
+                    ->label('First name')
+                    ->required()
+                    ->maxLength(255)
+                    ->autofocus(),
+                TextInput::make('last_name')
+                    ->label('Last name')
+                    ->required()
+                    ->maxLength(255),
                 $this->getEmailFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),

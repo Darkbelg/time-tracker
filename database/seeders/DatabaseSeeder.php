@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
 
         // Create a default user
         $user = User::factory()->create([
-            'name' => 'Stijn Sagaert',
+            'first_name' => 'Stijn',
+            'last_name' => 'Sagaert',
             'email' => 'stijn.sagaert@pareteum.com',
             'password' => bcrypt('password'),
             'company' => 'Pareteum',
@@ -47,7 +48,8 @@ class DatabaseSeeder extends Seeder
 
         // Create a default user
         $user2 = User::factory()->create([
-            'name' => 'not Stijn Sagaert',
+            'first_name' => 'Stijn',
+            'last_name' => 'Sagaert',
             'email' => 'stijn.sagaert+not@pareteum.com',
             'password' => bcrypt('password'),
             'company' => 'Pareteum',

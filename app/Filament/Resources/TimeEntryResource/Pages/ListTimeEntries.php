@@ -22,7 +22,10 @@ class ListTimeEntries extends ListRecords
             Actions\CreateAction::make(),
             Action::make('Export')
                 ->action(fn (Collection $records) => dd($records))
-            // ->action(fn () => Excel::download(new TimeEntryExport(), 'TimeEntry.xlsx')),
+             ->action(function () {
+                 $user = auth()->user();
+                 Excel::download(new TimeEntryExport(), 'TimeEntry.xlsx');
+             })
         ];
     }
 
