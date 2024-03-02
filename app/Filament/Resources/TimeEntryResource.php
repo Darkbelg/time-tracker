@@ -58,8 +58,7 @@ class TimeEntryResource extends Resource
                     ->disabled(),
                 Forms\Components\Select::make('type_id')
                     ->relationship('type', 'name')
-                    ->live()
-                    ->required(),
+                    ->live(),
                 Forms\Components\DatePicker::make('date')
                     ->default(now())
                     ->maxDate(now())

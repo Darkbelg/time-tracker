@@ -24,7 +24,9 @@ class ListTimeEntries extends ListRecords
                 ->action(fn (Collection $records) => dd($records))
              ->action(function () {
                  $user = auth()->user();
-                 Excel::download(new TimeEntryExport(), 'TimeEntry.xlsx');
+                 $currentYear = date('y');
+                 $lastMonth = date('m', strtotime('-1 month'));
+                 return Excel::download(new TimeEntryExport(), "Timesheet_{$user->last_name}_{$user->first_name}_{$currentYear}_{$lastMonth}.xlsx");
              })
         ];
     }

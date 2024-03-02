@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->foreignId('project_id')->constrained();
-            $table->foreignId('type_id')->constrained();
+            $table->foreignId('type_id')->nullable()->constrained();
             $table->decimal('time', 3, 2);
             $table->foreignId('owner_id')->constrained('users');
             $table->text('comment')->nullable();
