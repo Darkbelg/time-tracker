@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\TimeEntryResource\RelationManagers\ProjectsRelationManager;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Tables;
@@ -34,7 +35,16 @@ class TimeEntryResource extends Resource
                     ->searchable()
                     ->preload()
                     ->live()
-                    ->required(),
+                    ->required()
+                    ->createOptionForm([
+                        Forms\Components\Select::make('customer_id')
+                            ->relationship('customers', 'name')
+                            ->multiple()
+                            ->preload()
+                            ->required(),
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                    ]),
                 Forms\Components\Select::make('project_customers')
                     ->relationship('project.customers', 'name',function (Builder $query, Forms\Get $get){
                         $projectId = $get('project_id');

@@ -24,7 +24,9 @@ class ProjectResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('customer_id')
-                    ->relationship('customer', 'name')
+                    ->relationship('customers', 'name')
+                    ->multiple()
+                    ->preload()
                     ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()

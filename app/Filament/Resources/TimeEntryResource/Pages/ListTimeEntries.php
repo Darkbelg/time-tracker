@@ -3,10 +3,14 @@
 namespace App\Filament\Resources\TimeEntryResource\Pages;
 
 use Filament\Actions;
+use Filament\Actions\Action;
+use App\Exports\TimeEntryExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\Resources\TimeEntryResource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\TimeEntryResource;
+use  Illuminate\Database\Eloquent\Collection;
 
 class ListTimeEntries extends ListRecords
 {
@@ -16,6 +20,9 @@ class ListTimeEntries extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Action::make('Export')
+                ->action(fn (Collection $records) => dd($records))
+            // ->action(fn () => Excel::download(new TimeEntryExport(), 'TimeEntry.xlsx')),
         ];
     }
 

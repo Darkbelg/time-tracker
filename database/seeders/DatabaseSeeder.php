@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
+        $user->assignRole('developer');
+
         // Create time entries with random project and type
         for ($i = 0; $i < 1000; $i++) {
             TimeEntry::factory()->create([
@@ -51,6 +53,8 @@ class DatabaseSeeder extends Seeder
             'company' => 'Pareteum',
             'email_verified_at' => now(),
         ]);
+
+        $user2->assignRole('developer');
 
         // Create time entries with random project and type
         for ($i = 0; $i < 1000; $i++) {

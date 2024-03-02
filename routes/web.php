@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('time-entry/export/', \App\Http\Controllers\TimeEntryExportController::class);
