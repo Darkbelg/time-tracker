@@ -5,6 +5,8 @@ namespace App\Filament\Resources\TimeEntryResource\Pages;
 use Filament\Actions;
 use Filament\Actions\Action;
 use App\Exports\TimeEntryExport;
+use Filament\Actions\ActionGroup;
+use Filament\Support\Enums\IconPosition;
 use Maatwebsite\Excel\Facades\Excel;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
@@ -20,14 +22,29 @@ class ListTimeEntries extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
-            Action::make('Export')
-                ->action(fn (Collection $records) => dd($records))
-             ->action(function () {
-                 $user = auth()->user();
-                 $currentYear = date('y');
-                 $lastMonth = date('m', strtotime('-1 month'));
-                 return Excel::download(new TimeEntryExport(), "Timesheet_{$user->last_name}_{$user->first_name}_{$currentYear}_{$lastMonth}.xlsx");
-             })
+            ActionGroup::make([
+                Action::make('This month')
+                    ->action(function () {
+                        $user = auth()->user();
+                        $date = now();
+                        $currentYear = $date->format('y');
+                        $month = $date->format('m');
+                        return Excel::download(new TimeEntryExport($date), "Timesheet_{$user->last_name}_{$user->first_name}_{$currentYear}_{$month}.xlsx");
+                    }),
+                Action::make('Last month')
+                    ->action(function () {
+                        $user = auth()->user();
+                        $date = now()->subMonth();
+                        $currentYear = $date->format('y');
+                        $month = $date->format('m');
+                        return Excel::download(new TimeEntryExport($date), "Timesheet_{$user->last_name}_{$user->first_name}_{$currentYear}_{$month}.xlsx");
+                    }),
+            ])
+            ->label('Export')
+            ->button()
+            ->icon('heroicon-m-arrow-down-circle')
+            ->iconPosition(IconPosition::Before),
+
         ];
     }
 
