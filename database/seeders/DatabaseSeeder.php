@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $customers = Customer::factory()->count(10)->hasProjects(10)->create();
 
         // Refactor project types creation
-        $projectTypes = collect(['Standup', 'Code Review', 'Implementing & Testing', 'Bugfixing', 'Setup', 'Other'])
+        $projectTypes = collect(['Standup', 'Code Review', 'Implementing & Testing', 'Bugfixing', 'Setup', 'Other', null])
             ->map(function ($typeName) {
                 return Type::factory()->create(['name' => $typeName]);
             });
@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'first_name' => 'Stijn',
             'last_name' => 'Sagaert',
-            'email' => 'stijn.sagaert@pareteum.com',
+            'email' => 'stijn.sagaert@example.com',
             'password' => bcrypt('password'),
-            'company' => 'Pareteum',
+            'company' => 'Example',
             'email_verified_at' => now(),
         ]);
 
@@ -50,9 +50,9 @@ class DatabaseSeeder extends Seeder
         $user2 = User::factory()->create([
             'first_name' => 'Stijn',
             'last_name' => 'Sagaert',
-            'email' => 'stijn.sagaert+not@pareteum.com',
+            'email' => 'stijn.sagaert+not@example.com',
             'password' => bcrypt('password'),
-            'company' => 'Pareteum',
+            'company' => 'Example',
             'email_verified_at' => now(),
         ]);
 
@@ -75,5 +75,17 @@ class DatabaseSeeder extends Seeder
             $item->comment = fake()->text();
             $item->save();
         });
+
+        // Create a default user
+        $user3 = User::factory()->create([
+            'first_name' => 'Stijn',
+            'last_name' => 'Sagaert',
+            'email' => 'stijn.sagaert+moderator@example.com',
+            'password' => bcrypt('password'),
+            'company' => 'Example',
+            'email_verified_at' => now(),
+        ]);
+
+        $user3->assignRole('manager');
     }
 }
