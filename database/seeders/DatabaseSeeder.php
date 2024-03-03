@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $customers = Customer::factory()->count(10)->hasProjects(10)->create();
 
         // Refactor project types creation
-        $projectTypes = collect(['Standup', 'Code Review', 'Implementing & Testing', 'Bugfixing', 'Setup', 'Other', null])
+        $projectTypes = collect(['Standup', 'Code Review', 'Implementing & Testing', 'Bugfixing', 'Setup', 'Other'])
             ->map(function ($typeName) {
                 return Type::factory()->create(['name' => $typeName]);
             });
@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
         $user3 = User::factory()->create([
             'first_name' => 'Stijn',
             'last_name' => 'Sagaert',
-            'email' => 'stijn.sagaert+moderator@example.com',
+            'email' => 'stijn.sagaert+manager@example.com',
             'password' => bcrypt('password'),
             'company' => 'Example',
             'email_verified_at' => now(),

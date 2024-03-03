@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->login()
             ->passwordReset()
-            ->emailVerification()
+//            ->emailVerification()
             ->profile(EditProfile::class)
             ->registration(Register::class)
             ->colors([
