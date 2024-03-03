@@ -32,10 +32,16 @@ class UserResource extends Resource
                     ->disabled(),
                 Forms\Components\TextInput::make('company')
                     ->disabled(),
-                Forms\Components\Select::make('roles')
-                    ->relationship('roles', 'name')
-                    ->preload()
-                    ->searchable()
+                Forms\Components\CheckboxList::make('roles')
+                    ->relationship('roles', 'name' ,function ($query){
+                        $query->whereNot('name', 'super_admin');
+                    })
+//                Forms\Components\Select::make('roles')
+//                    ->relationship('roles', 'name', function ($query){
+//                        $query->whereNot('name', 'super_admin');
+//                    })
+//                    ->preload()
+//                    ->searchable()
             ]);
     }
 
@@ -51,6 +57,10 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

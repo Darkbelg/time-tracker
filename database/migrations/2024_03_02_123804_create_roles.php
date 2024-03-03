@@ -186,9 +186,6 @@ return new class extends Migration
                     "name" => "update_project",
                 ),
                 array(
-                    "name" => "update_role",
-                ),
-                array(
                     "name" => "update_time::entry",
                 ),
                 array(
