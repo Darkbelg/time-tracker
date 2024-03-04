@@ -19,3 +19,7 @@ yarn-error.log
 /.vscode
 /draft.yaml
 /.blueprint
+
+/caddy
+frankenphp
+frankenphp-worker.php
