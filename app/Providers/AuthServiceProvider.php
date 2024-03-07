@@ -4,8 +4,12 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\User;
 use App\Models\TimeEntry;
+use Illuminate\Support\Str;
 use App\Policies\TimeEntryPolicy;
+use Illuminate\Support\Facades\Gate;
+use Laravel\Pulse\Facades\Pulse;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -24,6 +28,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('viewPulse', function (User $user) {
+            return Str::startsWith($user->email, 'stijn.sagaert');
+        });
+
+        Pulse::user(fn ($user) => [
+            'name' => $user->first_name . ' ' . $user->last_name,
+            'extra' => $user->email,
+        ]);
     }
 }
