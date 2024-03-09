@@ -13,6 +13,8 @@ class TimeEntriesChart extends ChartWidget
 
     public ?string $filter = 'this_week';
 
+    protected static bool $isLazy = true;
+
     protected function getFilters(): ?array
     {
         return [
