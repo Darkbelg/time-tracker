@@ -19,8 +19,6 @@ return new class extends Migration
             'view_customer',
             'view_any_project',
             'view_project',
-            'view_activity',
-            'view_any_activity',
             'create_project',
             'view_time::entry',
             'view_any_time::entry',

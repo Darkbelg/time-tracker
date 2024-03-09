@@ -65,9 +65,9 @@ class AdminPanelProvider extends PanelProvider
                 config('filament-logger.activity_resource')
             ])
             ->widgets([
-                // Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
                 TimeEntriesChart::class,
+                Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ]);
     }
 }
