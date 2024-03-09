@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\ProjectResource\Pages;
 
-use App\Filament\Resources\ProjectResource;
 use Filament\Actions;
+use Filament\Actions\ImportAction;
+use App\Filament\Imports\ProjectImporter;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\ProjectResource;
 
 class ListProjects extends ListRecords
 {
@@ -14,6 +16,10 @@ class ListProjects extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            ImportAction::make()
+                ->importer(ProjectImporter::class)
+                ->visible(auth()->user()->can('import_project'))
+                ->color('primary')
         ];
     }
 }
