@@ -13,7 +13,6 @@ return new class extends Migration
     {
         \Illuminate\Support\Facades\Artisan::call('shield:generate --all');
 
-
         $role = \Spatie\Permission\Models\Role::create(['name' => 'developer']);
         $permissions = [
             'view_any_customer',

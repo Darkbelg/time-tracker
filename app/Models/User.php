@@ -4,18 +4,19 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Observers\UserObserver;
-use Filament\Models\Contracts\HasName;
 use Filament\Panel;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use App\Observers\UserObserver;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\HasName;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable implements FilamentUser, HasName
@@ -64,5 +65,15 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function getFilamentName(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    /**
+     * Get the user's name.
+     */
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => implode(' ', [$attributes['first_name'], $attributes['last_name']]),
+        );
     }
 }

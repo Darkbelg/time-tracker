@@ -7,9 +7,11 @@ namespace App\Providers;
 use App\Models\User;
 use App\Models\TimeEntry;
 use Illuminate\Support\Str;
+use App\Policies\ActivityPolicy;
+use Laravel\Pulse\Facades\Pulse;
 use App\Policies\TimeEntryPolicy;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Pulse\Facades\Pulse;
+use Spatie\Activitylog\Models\Activity;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -20,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        TimeEntry::class => TimeEntryPolicy::class
+        Activity::class => ActivityPolicy::class,
     ];
 
     /**
