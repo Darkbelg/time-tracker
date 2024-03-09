@@ -26,6 +26,11 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->widgets([
+                // Widgets\AccountWidget::class,
+                Widgets\FilamentInfoWidget::class,
+                TimeEntriesChart::class,
+            ])
             ->default()
             ->id('admin')
             ->login()
@@ -43,11 +48,6 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                // Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-                TimeEntriesChart::class,
-            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
