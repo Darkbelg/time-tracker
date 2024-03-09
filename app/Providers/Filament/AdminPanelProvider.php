@@ -26,13 +26,13 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
+            ->id('admin')
             ->widgets([
                 // Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
                 TimeEntriesChart::class,
             ])
-            ->default()
-            ->id('admin')
             ->login()
             ->passwordReset()
             //            ->emailVerification()
