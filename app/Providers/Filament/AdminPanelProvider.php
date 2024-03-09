@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\EditProfile;
 use App\Filament\Pages\Auth\Register;
+use App\Filament\Resources\TimeEntryResource\Widgets\TimeEntriesChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -29,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->login()
             ->passwordReset()
-//            ->emailVerification()
+            //            ->emailVerification()
             ->profile(EditProfile::class)
             ->registration(Register::class)
             ->colors([
@@ -45,6 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+                TimeEntriesChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
