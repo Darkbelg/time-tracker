@@ -28,11 +28,6 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->widgets([
-                // Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-                TimeEntriesChart::class,
-            ])
             ->login()
             ->passwordReset()
             //            ->emailVerification()
@@ -68,6 +63,11 @@ class AdminPanelProvider extends PanelProvider
             ->spa()
             ->resources([
                 config('filament-logger.activity_resource')
+            ])
+            ->widgets([
+                // Widgets\AccountWidget::class,
+                Widgets\FilamentInfoWidget::class,
+                TimeEntriesChart::class,
             ]);
     }
 }
