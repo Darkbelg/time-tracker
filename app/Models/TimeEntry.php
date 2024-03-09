@@ -18,14 +18,7 @@ class TimeEntry extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'date',
-        'project_id',
-        'type_id',
-        'time',
-        'owner_id',
-        'comment',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
@@ -55,5 +48,4 @@ class TimeEntry extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }

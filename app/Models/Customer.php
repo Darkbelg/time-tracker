@@ -15,9 +15,7 @@ class Customer extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
