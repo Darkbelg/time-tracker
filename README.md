@@ -31,4 +31,4 @@ Remove the mysql lock file from the mysql docker volume
 https://stackoverflow.com/questions/36103721/docker-db-container-running-another-process-with-pid-id-is-using-unix-socket
 
 Issue with frankenphp
-Restart the containers
+Restart the containers or reload octane
